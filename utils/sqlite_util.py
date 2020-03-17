@@ -29,6 +29,16 @@ class SQLiteUtil:
             _create_db()
 
     @staticmethod
+    def insert_account(server_id: str):
+        conn = sqlite3.connect(dbname)
+        c = conn.cursor()
+        sql = "insert into account values(?, ?, ?, ?, ?)"
+
+        c.execute(sql, (server_id, 0, 0, "", ""))
+        conn.commit()
+        conn.close()
+
+    @staticmethod
     def select_account_by_id(server_id: int) -> dict:
         conn = sqlite3.connect(dbname)
         c = conn.cursor()
@@ -37,7 +47,7 @@ class SQLiteUtil:
         accountData = c.fetchone()
 
         info = {}
-        if len(accountData) > 0:
+        if accountData is not None and len(accountData) > 0:
             info = {
                 "id": accountData[0],
                 "inch": accountData[1],
@@ -70,20 +80,20 @@ class SQLiteUtil:
         return infoList
 
     @staticmethod
-    def update_in_channel(server_id: str, picch: int):
+    def update_in_channel(server_id: str, inch: int):
         conn = sqlite3.connect(dbname)
         c = conn.cursor()
         sql = "update account set inch = ? where id = ?"
-        c.execute(sql, (picch, server_id))
+        c.execute(sql, (inch, server_id))
         conn.commit()
         conn.close()
 
     @staticmethod
-    def update_out_channel(server_id: str, retch: int):
+    def update_out_channel(server_id: str, outch: int):
         conn = sqlite3.connect(dbname)
         c = conn.cursor()
         sql = "update account set outch = ? where id = ?"
-        c.execute(sql, (retch, server_id))
+        c.execute(sql, (outch, server_id))
         conn.commit()
         conn.close()
 

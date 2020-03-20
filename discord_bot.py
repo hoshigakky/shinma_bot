@@ -16,7 +16,7 @@ from utils.sqlite_util import SQLiteUtil
 
 client = discord.Client()
 # Discord Bot token
-DISCORD_TOKEN = "NjA4MjYwMjA4MDg2NzQ1MTAx.XmObvw.2lPh64fOzp4HbzzsZRbIdPZWoQ0"
+DISCORD_TOKEN = ""
 
 # 画像格納ベースパス
 pic_base_path = "z://"
@@ -69,15 +69,14 @@ async def on_message(message):
         path = download_img(url, message.guild.id, os.path.basename(url))
 
         # 新魔解析
-        # TODO OpenCVによる画像マッチング
         match_types = OpenCVUtil.match_weapon_type(path)
-        for t in match_types:
-            logger.info(t)
-        # types = match_types[0]
-        # types.extend(match_types[1])
-        push_msg = PUSH_MESSAGE.format(match_types)
         # 画像削除
         os.remove(path)
+        # メッセージ作成
+        push_msg = PUSH_MESSAGE.format(match_types)
+
+        # リマインド用メッセージ更新
+        sql_util.updateMessage(message.guild.id, push_msg)
 
         # 新魔情報投稿チャンネルにメッセージを送信
         info = sql_util.select_account_by_id(message.guild.id)

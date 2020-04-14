@@ -19,7 +19,7 @@ client = discord.Client()
 DISCORD_TOKEN = ""
 
 # 画像格納ベースパス
-pic_base_path = "z://"
+PIC_BASE_PATH = "z://"
 
 # コマンド定義
 CMD_IN = "/inch"
@@ -76,7 +76,7 @@ async def on_message(message):
         push_msg = PUSH_MESSAGE.format(match_types)
 
         # リマインド用メッセージ更新
-        sql_util.updateMessage(message.guild.id, push_msg)
+        sql_util.update_message(message.guild.id, push_msg)
 
         # 新魔情報投稿チャンネルにメッセージを送信
         info = sql_util.select_account_by_id(message.guild.id)
@@ -135,16 +135,17 @@ async def cmd_analyze(message):
 def download_img(url: str, server_id: str, file_name: str) -> str:
     """
     画像ファイルのダウンロード
+    :rtype: object
     :param url: ダウンロード先URL
     :param server_id: 投稿サーバID
     :param file_name: ダウンロードファイル名
     :return: 画像ファイルの保存パス
     """
-    writePath = pic_base_path + str(server_id) + "/" + file_name
+    writePath = PIC_BASE_PATH + str(server_id) + "/" + file_name
     r = requests.get(url, stream=True)
     if r.status_code == 200:
-        if not os.path.exists(pic_base_path + str(server_id)):
-            os.makedirs(pic_base_path + str(server_id))
+        if not os.path.exists(PIC_BASE_PATH + str(server_id)):
+            os.makedirs(PIC_BASE_PATH + str(server_id))
 
         # ダウンロードしたデータを書き込み
         with open(writePath, 'wb') as f:

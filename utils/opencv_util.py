@@ -69,17 +69,17 @@ class OpenCVUtil:
         match_types = []
         rects = OpenCVUtil._find_rectangle(target_img)
         rect_img = target_img[rects[0][1]:rects[1][1], rects[0][0]:rects[1][0]]
-        cv2.imwrite("z://rect.png", rect_img)
+        OpenCVUtil._debug_image_writer("z://rect.png", rect_img)
         rect_height = rect_img.shape[0]
         rect_width = rect_img.shape[1]
         first_place = rect_img[int(rect_height * FIRST_LEFT_Y):int(rect_height * FIRST_RIGHT_Y), int(rect_width * FIRST_LEFT_X):int(rect_width * FIRST_RIGHT_X)]
         second_place = rect_img[int(rect_height * SECOND_LEFT_Y):int(rect_height * SECOND_RIGHT_Y), int(rect_width * SECOND_LEFT_X):int(rect_width * SECOND_RIGHT_X)]
 
         # 特徴量を抽出しやすいように画像を拡大
-        cv2.imwrite("z://resize_before_firstbot.png", first_place)
+        OpenCVUtil._debug_image_writer("z://resize_before_firstbot.png", first_place)
         first_place = cv2.resize(first_place, (int(first_place.shape[1] * RATE), int(first_place.shape[0] * RATE)))
         second_place = cv2.resize(second_place, (int(second_place.shape[1] * RATE), int(second_place.shape[0] * RATE)))
-        cv2.imwrite("z://resize_after_firstbot.png", first_place)
+        OpenCVUtil._debug_image_writer("z://resize_after_firstbot.png", first_place)
 
         akaze = cv2.AKAZE_create()
         blocks = []
@@ -96,9 +96,9 @@ class OpenCVUtil:
 
         # デバッグ用出力
         for i, block in enumerate(blocks):
-            cv2.imwrite("z://block_" + str(i) + ".png", block)
-        cv2.imwrite("z://firstbot.png", first_place)
-        cv2.imwrite("z://secondbot.png", second_place)
+            OpenCVUtil._debug_image_writer("z://block_" + str(i) + ".png", block)
+        OpenCVUtil._debug_image_writer("z://firstbot.png", first_place)
+        OpenCVUtil._debug_image_writer("z://secondbot.png", second_place)
 
         bf = cv2.BFMatcher()
         for pic, block in enumerate(blocks):
@@ -117,8 +117,8 @@ class OpenCVUtil:
                 out1 = cv2.drawKeypoints(OpenCVUtil.images[i], OpenCVUtil.key_points[i], None)
                 out2 = cv2.drawKeypoints(block, block_kp, None)
                 img_kaze = cv2.drawMatchesKnn(out1, OpenCVUtil.key_points[i], out2, block_kp, good, None, flags=2)
-                cv2.imwrite("z://type" + str(i) + '.png', out1)
-                cv2.imwrite('z://img_gray_debug_1' + str(pic) + str(i) + '.png', img_kaze)
+                OpenCVUtil._debug_image_writer("z://type" + str(i) + '.png', out1)
+                OpenCVUtil._debug_image_writer('z://img_gray_debug_1' + str(pic) + str(i) + '.png', img_kaze)
 
                 logger.info(str(i) + " type : " + str(len(good)))
                 if len(good) > more_score:
@@ -148,7 +148,7 @@ class OpenCVUtil:
         height = result.shape[0]
         width = result.shape[1]
 
-        cv2.imwrite("z://find_rect.png", result)
+        OpenCVUtil._debug_image_writer("z://find_rect.png", result)
 
         black_pixel = 0
         rect_start_pixel_w = -1
@@ -207,3 +207,8 @@ class OpenCVUtil:
                 break
 
         return left, right
+
+    @staticmethod
+    def _debug_image_writer(path: str, image):
+        cv2.imwrite(path, image)
+

@@ -41,8 +41,9 @@ logger.propagate = False
 @client.event
 async def on_ready():
     """Bot起動時に実行されるイベントハンドラ"""
-    logger.info("bot boot")
+    logger.info("bot boot and init start")
     OpenCVUtil.init_load()
+    logger.info("init end")
 
 
 @client.event

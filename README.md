@@ -19,8 +19,8 @@ https://discordapp.com/api/oauth2/authorize?client_id=608260208086745101&permiss
 関係ない画像が貼られるとゴミが神魔情報投稿チャンネルに投稿されます。  
 ```
 /inch 一般
-/outch 一般
-/time 12:00
+/outch 神魔ちゃんねる
+/time 12:30
 ```
 
 ## 投稿サンプル画像

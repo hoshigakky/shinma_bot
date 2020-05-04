@@ -10,7 +10,7 @@ import requests
 from discord.ext import tasks
 
 from const.constants import constant_time_list, TIME_1, TIME_2, TIME_3, TIME_4, TIME_5, TIME_6, TIME_7, TIME_8, \
-    PUSH_MESSAGE
+    PUSH_MESSAGE, INFO_MESSAGE
 from utils.opencv_util import OpenCVUtil
 from utils.sqlite_util import SQLiteUtil
 
@@ -126,7 +126,12 @@ async def cmd_analyze(message):
                         sql_util.update_out_channel(server_id, text_ch.id)
                         break
     elif receive_msg.startswith(CMD_INFO):
-        # TODO 設定内容表示
+        await _send_message(server_id,
+                            message.channel.id,
+                            INFO_MESSAGE.format(
+                                message.guild._channels[account["inch"]].name,
+                                message.guild._channels[account["outch"]].name,
+                                account["time"]))
         pass
     else:
         # 認識できないコマンド

@@ -3,8 +3,31 @@
 コロシアムの時間を設定することで大体5分前にリマインドします。  
 時々解析に失敗します。  
 
+## Bot URL
+以下のURLからBotを追加してください。  
+https://discordapp.com/api/oauth2/authorize?client_id=608260208086745101&permissions=2048&scope=bot
+
 ## コマンド
 * /inch [チャンネル名]: 画像投稿チャンネルを設定
-* /outch [チャンネル名]: 新魔情報投稿チャンネルを設定
+* /outch [チャンネル名]: 神魔情報投稿チャンネルを設定
 * /time [08:00,12:30,18:00,19:00,20:00,21:00,22:00,23:00]: コロシアムの時間帯を設定
 * /info: 設定内容表示
+
+## 設定イメージ
+1コマンドずつテキストチャンネルに投稿してください。  
+画像投稿チャンネルは投稿専用のチャンネルを作成してください。  
+関係ない画像が貼られるとゴミが神魔情報投稿チャンネルに投稿されます。  
+```
+/inch 一般
+/outch 一般
+/time 12:00
+```
+
+## 投稿サンプル画像
+投稿する画像の解像度はなるべく大きいものにしてください。  
+小さいと失敗します。  
+<img src="https://github.com/hoshigakky/shinma_bot/blob/master/data/%E6%97%8B%E9%A2%A8%E3%81%AE%E5%8E%84%E7%81%BD_%E6%97%A5%E8%BC%AA%E3%81%AE%E5%8E%84%E7%81%BD.png" width="30%" />
+
+## 結果イメージ
+数秒から数分後に以下のような結果がBotから投稿されます。  
+![](https://github.com/hoshigakky/shinma_bot/blob/master/data/result_sample.png)

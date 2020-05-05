@@ -206,7 +206,7 @@ class OpenCVUtil:
         rect_start_pixel_h = -1
         end = False
         black_pixel = 0
-        for h in range(height - int(height / 10), 0, -1):  # 下部はOKボタンがあるので少し範囲を狭めるため10で割った値を使用
+        for h in range(height - 1, 0, -1):
             for w in range(width - 1, 0, -1):
                 b = result[h, w][0]
                 g = result[h, w][1]

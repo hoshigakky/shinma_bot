@@ -78,15 +78,24 @@ SECOND_RIGHT_X = 0.484
 SECOND_RIGHT_Y = 0.792
 
 TYPE_PATHS = {
-    TYPE_1: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_1.png", TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_1.png",
-             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_1.png", TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_1_1.png"],
-    TYPE_2: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_2.png", TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_2.png"],
-    TYPE_3: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_3.png", TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_3.png"],
-    TYPE_4: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_4.png", TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_4.png"],
-    TYPE_5: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_5.png", TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_5.png"],
-    TYPE_6: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_6.png", TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_6.png",
+    TYPE_1: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_1.png",
+             TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_1.png",
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_1.png",
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_1_1.png"],
+    TYPE_2: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_2.png",
+             TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_2.png"],
+    TYPE_3: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_3.png",
+             TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_3.png"],
+    TYPE_4: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_4.png",
+             TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_4.png"],
+    TYPE_5: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_5.png",
+             TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_5.png",
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_5.png"],
+    TYPE_6: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_6.png",
+             TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_6.png",
              TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_6.png"],
-    TYPE_7: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_7.png", TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_7.png",
+    TYPE_7: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_7.png",
+             TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_7.png",
              TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_7.png"],
     TYPE_8: []
 }

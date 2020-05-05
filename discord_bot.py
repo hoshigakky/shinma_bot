@@ -113,6 +113,9 @@ async def cmd_analyze(message):
         try:
             input_time = receive_msg.split(" ")[1]
             datetime.datetime.strptime(input_time, "%H:%M")
+            if input_time not in constant_time_list():
+                raise ValueError("invalid time string")
+
             sql_util.update_time(server_id, input_time)
         except ValueError:
             await _send_message(message.guild.id, message.channel.id, "設定可能値：" + ",".join(constant_time_list()))
@@ -220,6 +223,7 @@ async def _send_message(server_id: int, channel_id: str, msg: str):
     logger.info("send message = " + msg)
     channel = client.get_channel(channel_id)
     await channel.send(msg)
+
 
 if __name__ == "__main__":
     _loop.start()

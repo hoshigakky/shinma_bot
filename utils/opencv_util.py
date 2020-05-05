@@ -25,7 +25,6 @@ class OpenCVUtil:
         for path_key in TYPE_PATHS.keys():
             paths = TYPE_PATHS[path_key]
             for path in paths:
-                print(path)
                 weapon_type_img = cv2.imread(path)
                 height = weapon_type_img.shape[0]
                 width = weapon_type_img.shape[1]

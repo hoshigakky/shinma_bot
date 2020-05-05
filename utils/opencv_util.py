@@ -77,18 +77,18 @@ class OpenCVUtil:
         return mask
 
     @staticmethod
-    def match_weapon_type(image_path: str) -> []:
+    def match_weapon_type(image_path: str, server_id) -> []:
         logger.debug("matching start")
         target_image = cv2.imread(image_path)
-        top_match_types = OpenCVUtil._match(target_image)
+        top_match_types = OpenCVUtil._match(target_image, server_id)
         return top_match_types
 
     @staticmethod
-    def _match(target_img) -> []:
+    def _match(target_img, server_id) -> []:
         match_types = []
         rects = OpenCVUtil._find_rectangle(target_img)
         rect_img = target_img[rects[0][1]:rects[1][1], rects[0][0]:rects[1][0]]
-        OpenCVUtil._debug_image_writer("z://rect.png", rect_img)
+        OpenCVUtil._debug_image_writer("z://" + str(server_id) + "/rect.png", rect_img)
         rect_height = rect_img.shape[0]
         rect_width = rect_img.shape[1]
         first_place = rect_img[int(rect_height * FIRST_LEFT_Y):int(rect_height * FIRST_RIGHT_Y),
@@ -97,10 +97,10 @@ class OpenCVUtil:
                        int(rect_width * SECOND_LEFT_X):int(rect_width * SECOND_RIGHT_X)]
 
         # 特徴量を抽出しやすいように画像を拡大
-        OpenCVUtil._debug_image_writer("z://resize_before_firstbot.png", first_place)
+        OpenCVUtil._debug_image_writer("z://" + str(server_id) + "/resize_before_firstbot.png", first_place)
         first_place = cv2.resize(first_place, (int(first_place.shape[1] * RATE), int(first_place.shape[0] * RATE)))
         second_place = cv2.resize(second_place, (int(second_place.shape[1] * RATE), int(second_place.shape[0] * RATE)))
-        OpenCVUtil._debug_image_writer("z://resize_after_firstbot.png", first_place)
+        OpenCVUtil._debug_image_writer("z://" + str(server_id) + "/resize_after_firstbot.png", first_place)
 
         akaze = cv2.AKAZE_create()
         blocks = []
@@ -117,9 +117,9 @@ class OpenCVUtil:
 
         # デバッグ用出力
         for i, block in enumerate(blocks):
-            OpenCVUtil._debug_image_writer("z://block_" + str(i) + ".png", block)
-        OpenCVUtil._debug_image_writer("z://firstbot.png", first_place)
-        OpenCVUtil._debug_image_writer("z://secondbot.png", second_place)
+            OpenCVUtil._debug_image_writer("z://" + str(server_id) + "/block_" + str(i) + ".png", block)
+        OpenCVUtil._debug_image_writer("z://" + str(server_id) + "/firstbot.png", first_place)
+        OpenCVUtil._debug_image_writer("z://" + str(server_id) + "/secondbot.png", second_place)
 
         bf = cv2.BFMatcher()
         for pic, block in enumerate(blocks):

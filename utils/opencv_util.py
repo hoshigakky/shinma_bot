@@ -188,9 +188,9 @@ class OpenCVUtil:
                         rect_start_pixel_w = w
                         rect_start_pixel_h = h
 
-                    # 背景色が黒以外で連続横幅8割続いた場合は神魔の範囲とみなす
+                    # 背景色が黒以外で連続横幅6割続いた場合は神魔の範囲とみなす
                     black_pixel += 1
-                    if black_pixel > int(width * 0.8):
+                    if black_pixel > int(width * 0.6):
                         end = True
                         left = rect_start_pixel_w, rect_start_pixel_h
                         break
@@ -216,9 +216,9 @@ class OpenCVUtil:
                     if rect_start_pixel_w == -1:
                         rect_start_pixel_w = w
                         rect_start_pixel_h = h
-                    # 背景色が黒以外で連続横幅8割続いた場合は神魔の範囲とみなす
+                    # 背景色が黒以外で連続横幅6割続いた場合は神魔の範囲とみなす
                     black_pixel += 1
-                    if black_pixel > int(width * 0.8):
+                    if black_pixel > int(width * 0.6):
                         end = True
                         right = rect_start_pixel_w, rect_start_pixel_h
                         break

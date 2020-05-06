@@ -69,12 +69,14 @@ async def on_message(message):
         # 画像ダウンロード
         path = download_img(url, message.guild.id, os.path.basename(url))
 
-        # 新魔解析
+        # 神魔解析
         try:
             match_types = OpenCVUtil.match_weapon_type(path, message.guild.id)
+            if len(match_types) == 0:
+                raise Exception("match type zero")
         except Exception as e:
             logger.error("match error", e)
-            await _send_message(message.guild.id, message.channel.id, "解析に失敗しました。")
+            await _send_message(message.guild.id, message.channel.id, "解析に失敗したか神魔画像ではありません。")
             return
         # 画像削除
         os.remove(path)

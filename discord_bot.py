@@ -118,12 +118,9 @@ async def cmd_analyze(message):
         try:
             input_time = receive_msg.split(" ")[1]
             datetime.datetime.strptime(input_time, "%H:%M")
-            if input_time not in constant_time_list():
-                raise ValueError("invalid time string")
-
             sql_util.update_time(server_id, input_time)
         except ValueError:
-            await _send_message(message.guild.id, message.channel.id, "設定可能値：" + ",".join(constant_time_list()))
+            await _send_message(message.guild.id, message.channel.id, "設定値が不正です。(例 12:30)")
 
     elif receive_msg.startswith(CMD_OUT):
         for guild in client.guilds:
@@ -186,31 +183,12 @@ def _push_msg_clear():
 async def _remind():
     logger.info("remind start")
     now = datetime.datetime.now()
-    hour = now.strftime("%H%M")
-
-    if hour == "0755":  # 08:00
-        start_time = TIME_1
-    elif hour == "1225":  # 12:30
-        start_time = TIME_2
-    elif hour == "1755":  # 18:00
-        start_time = TIME_3
-    elif hour == "1855":  # 19:00
-        start_time = TIME_4
-    elif hour == "1955":  # 20:00
-        start_time = TIME_5
-    elif hour == "2055":  # 21:00
-        start_time = TIME_6
-    elif hour == "2155":  # 22:00
-        start_time = TIME_7
-    elif hour == "2255":  # 23:00
-        start_time = TIME_8
-    elif hour == "0000":  # メッセージクリア用
+    hour = now.strftime("%H:%M")
+    if hour == "00:00":  # メッセージクリア用
         _push_msg_clear()
-    else:
-        return
 
     sql_util = SQLiteUtil()
-    info_list = sql_util.select_time_group(start_time)
+    info_list = sql_util.select_time_group(hour)
 
     for info in info_list:
         logger.info(info)

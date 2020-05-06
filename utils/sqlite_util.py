@@ -114,3 +114,12 @@ class SQLiteUtil:
         c.execute(sql, (msg, server_id))
         conn.commit()
         conn.close()
+
+    @staticmethod
+    def all_clear_message():
+        conn = sqlite3.connect(dbname)
+        c = conn.cursor()
+        sql = "update account set pushmsg = ''"
+        c.execute(sql)
+        conn.commit()
+        conn.close()

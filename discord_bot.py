@@ -5,7 +5,6 @@ from logging import getLogger, StreamHandler, DEBUG
 
 import discord
 
-# discord client
 import requests
 from discord.ext import tasks
 
@@ -14,6 +13,7 @@ from const.constants import constant_time_list, TIME_1, TIME_2, TIME_3, TIME_4, 
 from utils.opencv_util import OpenCVUtil
 from utils.sqlite_util import SQLiteUtil
 
+# discord client
 client = discord.Client()
 # Discord Bot token
 DISCORD_TOKEN = ""
@@ -178,6 +178,11 @@ def _get_file_url(attachments: list) -> list:
     return url_list
 
 
+def _push_msg_clear():
+    sql_util = SQLiteUtil()
+    sql_util.all_clear_message()
+
+
 async def _remind():
     logger.info("remind start")
     now = datetime.datetime.now()
@@ -199,6 +204,8 @@ async def _remind():
         start_time = TIME_7
     elif hour == "2255":  # 23:00
         start_time = TIME_8
+    elif hour == "0000":  # メッセージクリア用
+        _push_msg_clear()
     else:
         return
 

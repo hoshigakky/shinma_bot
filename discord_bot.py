@@ -72,7 +72,11 @@ async def on_message(message):
         # 神魔解析
         try:
             match_types = OpenCVUtil.match_weapon_type(path, message.guild.id)
-            if len(match_types) == 0:
+            error_count = 0
+            for match_type in match_types:
+                if len(match_type) == 0:
+                    error_count += 1
+            if error_count == 6:
                 raise Exception("match type zero")
         except Exception as e:
             logger.error("match error", e)
@@ -86,7 +90,7 @@ async def on_message(message):
         # リマインド用メッセージ更新
         sql_util.update_message(message.guild.id, push_msg)
 
-        # 新魔情報投稿チャンネルにメッセージを送信
+        # 神魔情報投稿チャンネルにメッセージを送信
         info = sql_util.select_account_by_id(message.guild.id)
         msg_push_channel = info["outch"]
 
@@ -202,13 +206,16 @@ async def _remind():
 async def _loop():
     logger.info("task loop")
 
-    # 再接続
-    if client.is_closed():
-        await client.connect(reconnect=True)
+    try:
+        # 再接続
+        if client.is_closed():
+            await client.connect(reconnect=True)
 
-    # 5分前神魔リマインド
-    if client.is_ready():
-        await _remind()
+        # 5分前神魔リマインド
+        if client.is_ready():
+            await _remind()
+    except Exception as e:
+        logger.error("loop error", e)
 
 
 async def _send_message(server_id: int, channel_id: str, msg: str):

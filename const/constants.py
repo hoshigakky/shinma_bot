@@ -63,8 +63,8 @@ PUSH_MESSAGE = "本日の神魔\n" \
 INFO_MESSAGE = "設定情報\n" \
                "```\n" \
                "画像投稿チャンネル:{0}\n" \
-               "新魔情報投稿チャンネル:{1}\n" \
-               "コロシアム時間帯:{2}\n" \
+               "神魔情報投稿チャンネル:{1}\n" \
+               "通知時間:{2}\n" \
                "```"
 # 第1神魔 場所算出用
 FIRST_LEFT_X = 0.317
@@ -92,7 +92,8 @@ TYPE_PATHS = {
     TYPE_4: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_4.png",
              TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_4.png",
              TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4.png",
-             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4_1.png"],
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4_1.png",
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4_2.png"],
     TYPE_5: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_5.png",
              TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_5.png",
              TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_5.png",

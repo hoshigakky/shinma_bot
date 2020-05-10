@@ -8,8 +8,8 @@ import discord
 import requests
 from discord.ext import tasks
 
-from const.constants import constant_time_list, TIME_1, TIME_2, TIME_3, TIME_4, TIME_5, TIME_6, TIME_7, TIME_8, \
-    PUSH_MESSAGE, INFO_MESSAGE
+from const.constants import PUSH_MESSAGE, INFO_MESSAGE
+from utils.notice_message import NoticeMessage
 from utils.opencv_util import OpenCVUtil
 from utils.sqlite_util import SQLiteUtil
 
@@ -22,10 +22,11 @@ DISCORD_TOKEN = ""
 PIC_BASE_PATH = "z://"
 
 # コマンド定義
-CMD_IN = "/inch"
-CMD_TIME = "/time"
-CMD_OUT = "/outch"
+CMD_IN = "/inch "
+CMD_TIME = "/time "
+CMD_OUT = "/outch "
 CMD_INFO = "/info"
+CMD_TEMPLATE = "/msg "
 
 # logger
 logger = getLogger(__name__)
@@ -85,7 +86,8 @@ async def on_message(message):
         # 画像削除
         os.remove(path)
         # メッセージ作成
-        push_msg = PUSH_MESSAGE.format(match_types)
+        msg = NoticeMessage.create_notice_message(match_types, message.guild.id)
+        push_msg = msg.format(match_types)
 
         # リマインド用メッセージ更新
         sql_util.update_message(message.guild.id, push_msg)
@@ -109,6 +111,12 @@ async def cmd_analyze(message):
     account = sql_util.select_account_by_id(server_id)
     if len(account) == 0:
         sql_util.insert_account(server_id)
+
+    msg = sql_util.select_msg_template(server_id)
+    if len(msg) == 0:
+        # メッセージ未設定の場合テンプレート使用
+        SQLiteUtil.insert_msg_template(server_id, PUSH_MESSAGE)
+        msg = PUSH_MESSAGE
 
     if receive_msg.startswith(CMD_IN):
         for guild in client.guilds:
@@ -142,8 +150,11 @@ async def cmd_analyze(message):
                             INFO_MESSAGE.format(
                                 message.guild._channels[account["inch"]].name,
                                 message.guild._channels[account["outch"]].name,
-                                account["time"]))
-        pass
+                                account["time"],
+                                msg.replace("`", "` ")))
+    elif receive_msg.startswith(CMD_TEMPLATE):
+        template = receive_msg.replace(CMD_TEMPLATE, "")
+        sql_util.insert_msg_template(server_id, template)
     else:
         # 認識できないコマンド
         pass

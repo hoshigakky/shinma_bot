@@ -21,12 +21,28 @@ def _create_db():
     conn.close()
 
 
+def _add_table():
+    sql = "create table if not exists msg_template" \
+          "(" \
+          "id integer primary key, " \
+          "template text" \
+          ")"
+    conn = sqlite3.connect(dbname)
+    c = conn.cursor()
+    c.execute(sql)
+    conn.commit()
+    conn.close()
+
+
 class SQLiteUtil:
     def __init__(self):
         exist = os.path.exists(dbname)
         if not exist:
             # DB初期化処理
             _create_db()
+
+        # メッセージテンプレートテーブル作成
+        _add_table()
 
     @staticmethod
     def insert_account(server_id: str):
@@ -123,3 +139,37 @@ class SQLiteUtil:
         c.execute(sql)
         conn.commit()
         conn.close()
+
+    @staticmethod
+    def insert_msg_template(server_id: str, template: str):
+        conn = sqlite3.connect(dbname)
+        c = conn.cursor()
+        sql = "insert into msg_template values(?, ?) on conflict (id) do update set template = ?"
+        c.execute(sql, (server_id, template, template))
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def update_msg_template(server_id: str, template: str):
+        conn = sqlite3.connect(dbname)
+        c = conn.cursor()
+        sql = "update msg_template set template = ? where server_id = ?"
+        c.execute(sql, (template, server_id))
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def select_msg_template(server_id: str):
+        conn = sqlite3.connect(dbname)
+        c = conn.cursor()
+        sql = "select template from msg_template where id = ?"
+        c.execute(sql, (server_id,))
+        msg = c.fetchone()
+        conn.close()
+
+        if msg is None or len(msg) == 0:
+            msg = ""
+        else:
+            msg = msg[0]
+
+        return msg

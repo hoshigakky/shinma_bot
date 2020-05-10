@@ -1,10 +1,3 @@
-# 震波の厄災 打撃、射出、祈祷
-# 氷雪の厄災 刀剣、長柄、祈祷
-# 旋風の厄災 打撃、射出、魔書
-# 日輪の厄災 刀剣、長柄、魔書
-# 雷公の厄災 刀剣、長柄、楽器
-# 流星の厄災 打撃、射出、楽器
-# 日輪の厄災(魔具) 刀剣、魔具、魔書
 import platform
 
 TYPE_1 = "打撃"
@@ -21,19 +14,13 @@ def constant_list() -> ():
     return TYPE_1, TYPE_2, TYPE_3, TYPE_4, TYPE_5, TYPE_6, TYPE_7, TYPE_8
 
 
-TIME_1 = "08:00"
-TIME_2 = "12:30"
-TIME_3 = "18:00"
-TIME_4 = "19:00"
-TIME_5 = "20:00"
-TIME_6 = "21:00"
-TIME_7 = "22:00"
-TIME_8 = "23:00"
-
-
-def constant_time_list() -> ():
-    return TIME_1, TIME_2, TIME_3, TIME_4, TIME_5, TIME_6, TIME_7, TIME_8
-
+DISASTER_1 = "震波"   # 震波の厄災 打撃、射出、祈祷
+DISASTER_2 = "氷雪"   # 氷雪の厄災 刀剣、長柄、祈祷
+DISASTER_3 = "旋風"   # 旋風の厄災 打撃、射出、魔書
+DISASTER_4 = "日輪"   # 日輪の厄災 刀剣、長柄、魔書
+DISASTER_5 = "流星"   # 流星の厄災 打撃、射出、楽器
+DISASTER_6 = "雷公"   # 雷公の厄災 刀剣、長柄、楽器
+# DISASTER_7 = "日輪"   # 日輪の厄災(魔具) 刀剣、魔具、魔書
 
 # 装備画像保存パス
 os_name = platform.system()
@@ -57,14 +44,15 @@ else:
 #                "============================="
 PUSH_MESSAGE = "本日の神魔\n" \
                "```\n" \
-               "第1神魔：{0[0]}、{0[1]}、{0[2]}\n" \
-               "第2神魔：{0[3]}、{0[4]}、{0[5]}\n" \
+               "第1神魔({6})：{0}、{1}、{2}\n" \
+               "第2神魔({7})：{3}、{4}、{5}\n" \
                "```"
 INFO_MESSAGE = "設定情報\n" \
                "```\n" \
                "画像投稿チャンネル:{0}\n" \
                "神魔情報投稿チャンネル:{1}\n" \
                "通知時間:{2}\n" \
+               "通知メッセージ:{3}\n" \
                "```"
 # 第1神魔 場所算出用
 FIRST_LEFT_X = 0.317
@@ -88,12 +76,14 @@ TYPE_PATHS = {
              TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_2_1.png"],
     TYPE_3: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_3.png",
              TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_3.png",
-             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_3.png"],
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_3.png",
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_3_1.png"],
     TYPE_4: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_4.png",
              TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_4.png",
              TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4.png",
              TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4_1.png",
-             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4_2.png"],
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4_2.png",
+             TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_4_3.png"],
     TYPE_5: [TMP_SCREEN_SHOT_PATH + "pattern1/weapon_type_5.png",
              TMP_SCREEN_SHOT_PATH + "pattern2/weapon_type_5.png",
              TMP_SCREEN_SHOT_PATH + "pattern3/weapon_type_5.png",

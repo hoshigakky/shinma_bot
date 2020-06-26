@@ -115,7 +115,7 @@ async def cmd_analyze(message):
     msg = sql_util.select_msg_template(server_id)
     if len(msg) == 0:
         # メッセージ未設定の場合テンプレート使用
-        SQLiteUtil.insert_msg_template(server_id, PUSH_MESSAGE)
+        sql_util.insert_msg_template(server_id, PUSH_MESSAGE)
         msg = PUSH_MESSAGE
 
     if receive_msg.startswith(CMD_IN):
@@ -152,6 +152,8 @@ async def cmd_analyze(message):
                                 message.guild._channels[account["outch"]].name,
                                 account["time"],
                                 msg.replace("`", "` ")))
+    elif receive_msg.startswith(CMD_TEMPLATE + "reset"):
+        sql_util.insert_msg_template(server_id, PUSH_MESSAGE)
     elif receive_msg.startswith(CMD_TEMPLATE):
         template = receive_msg.replace(CMD_TEMPLATE, "")
         sql_util.insert_msg_template(server_id, template)

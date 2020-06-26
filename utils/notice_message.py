@@ -1,4 +1,4 @@
-from const.constants import TYPE_1, TYPE_2, TYPE_3, TYPE_4, TYPE_5, TYPE_6, DISASTER_1, DISASTER_2, DISASTER_3, \
+from const.constants import TYPE_1, TYPE_2, TYPE_3, TYPE_4, TYPE_5, TYPE_6, TYPE_7, DISASTER_1, DISASTER_2, DISASTER_3, \
     DISASTER_4, DISASTER_5, DISASTER_6, PUSH_MESSAGE
 from utils.sqlite_util import SQLiteUtil
 
@@ -18,7 +18,7 @@ class NoticeMessage:
         msg = sql_util.select_msg_template(server_id)
         if len(msg) == 0:
             # メッセージ未設定の場合テンプレート使用
-            SQLiteUtil.insert_msg_template(server_id, PUSH_MESSAGE)
+            sql_util.insert_msg_template(server_id, PUSH_MESSAGE)
             msg = PUSH_MESSAGE
 
         notice = msg.format(match_types[0],
@@ -55,7 +55,7 @@ class NoticeMessage:
             elif type_3_4:
                 # 日輪の厄災
                 return DISASTER_4, TYPE_3, TYPE_4
-        elif rear == TYPE_6:  # 楽器
+        elif rear == TYPE_7:  # 楽器
             if type_1_2:
                 # 流星の厄災
                 return DISASTER_5, TYPE_1, TYPE_2
